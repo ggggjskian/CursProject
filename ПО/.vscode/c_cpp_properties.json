@@ -1,0 +1,44 @@
+{
+    "configurations": [
+        {
+            "name": "Qt6 MSYS2 MinGW x64",
+            "compilerPath": "C:/msys64/mingw64/bin/g++.exe",
+            "includePath": [
+                "${workspaceFolder}/**",
+
+                "C:/msys64/mingw64/include/c++/15.1.0",
+                "C:/msys64/mingw64/include/c++/15.1.0/x86_64-w64-mingw32",
+                "C:/msys64/mingw64/include/c++/15.1.0/backward",
+                "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include",
+                "C:/msys64/mingw64/include",
+                "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include-fixed",
+                
+                "C:/msys64/mingw64/include/qt6",
+                "C:/msys64/mingw64/include/qt6/QtCore",
+                "C:/msys64/mingw64/include/qt6/QtGui",
+                "C:/msys64/mingw64/include/qt6/QtWidgets"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "QT_CORE_LIB",
+                "QT_GUI_LIB",
+                "QT_WIDGETS_LIB"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "windows-gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "C:/msys64/mingw64/include",
+                    "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
