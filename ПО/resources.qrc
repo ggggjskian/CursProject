@@ -1,0 +1,8 @@
+<!-- resources.qrc -->
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource prefix="/">
+    <file alias="Pets.txt">Pets.txt</file>
+    <file alias="Visits.txt">Visits.txt</file>
+</qresource>
+</RCC>
