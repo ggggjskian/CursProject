@@ -65,17 +65,6 @@ class Manager{
 
         }
 
-
-        bool reinitializeHashTable(int newSize) {
-            if (petsCount > 0) {
-                return false;
-            }
-
-
-            hashtable = HashTable<Key, int>(newSize);
-            return true;
-        }
-
         void readVisitsFile(string filename){
             string line;
             ifstream file(filename);
@@ -169,12 +158,12 @@ class Manager{
 
         bool removePet(const Key& key, const std::string& type) {
 
-            optional<int> temp = hashtable.find(key);
-            if (!temp) {
+            optional<int> index_opt = hashtable.find(key);
+            if (!index_opt) {
                 return false;
             }
             
-            int indexToDelete = *temp;
+            int indexToDelete = *index_opt;
             if (indexToDelete < 0 || indexToDelete >= petsCount) {
                 return false;
             }
@@ -294,74 +283,51 @@ class Manager{
         }
 
 
-        void findVisits(const Key& key, recordVisit* results_array, int& out_count, int& out_steps) const {
-            out_count = 0;
-            out_steps = 0;
+        int findElementsInTree(const Key& key) const {
+            int stepForSearch = 0;
+            optional<DoubleLinkedList<int>> result = tree.searchList(key, stepForSearch);
 
-            optional<DoubleLinkedList<int>> listNumbers = tree.searchList(key, out_steps);
-
-            if (!listNumbers || listNumbers->isEmpty()) {
-                return;
+            if (result){
+                return stepForSearch;   
             }
-
-            auto* currentNode = listNumbers->getHead();
-            while (currentNode != nullptr) {
-                int idx = currentNode->data;
-                if (idx >= 0 && idx < visitsCount) {
-                    results_array[out_count] = Visits[idx];
-                    out_count++;
-                }
-                currentNode = currentNode->next;
-            }
-        }
-
-
-        optional<recordPet> findPet(const Key& key) const {
-            optional<int> temp = hashtable.find(key);
-            if (temp) {
-                return Pets[*temp];
-                
-            }
-            return nullopt;
+            return -1;
         }
 
 
 
+   int generateReport(const std::string& ownerFioFilter, const std::string& doctorFioFilter, const Time& startDate, const Time& endDate, ReportEntry* reportResults) {
+        int reportCount = 0;
+        int visitIndices[1000];
+        int foundCount = sortTree.findInRange(startDate, endDate, visitIndices);
 
-
-    int generateReport(const std::string& ownerFioFilter, const std::string& doctorFioFilter, const Time& startDate, const Time& endDate, ReportEntry* reportResults) {
-            int reportCount = 0;
-            int visitIndices[1000];
-            int foundCount = sortTree.findInRange(startDate, endDate, visitIndices);
-
-            for (int i = 0; i < foundCount; ++i) {
-                int idx = visitIndices[i];
-                const auto& visit = Visits[idx];
-                
-                if (!ownerFioFilter.empty() && visit.key.owner.toStringView() != ownerFioFilter) {
-                    continue;
-                }
-                
-                if (!doctorFioFilter.empty() && visit.doctor.toStringView() != doctorFioFilter) {
-                    continue;
-                }
-
-                optional<int> tempIndex = hashtable.find(visit.key);
-                optional<recordPet> petInfo = Pets[*tempIndex];
-                string petTypeStr = petInfo ? petInfo->type : "НЕ НАЙДЕН";
-
-                reportResults[reportCount].petName = visit.key.petName;
-                reportResults[reportCount].ownerFio = visit.key.owner.toStringView();
-                reportResults[reportCount].petType = petTypeStr;
-                reportResults[reportCount].diagnos = visit.diagnos;
-                reportResults[reportCount].doctorFio = visit.doctor.toStringView();
-                reportResults[reportCount].date = visit.time.toString();
-
-                reportCount++;
+        for (int i = 0; i < foundCount; ++i) {
+            int idx = visitIndices[i];
+            const auto& visit = Visits[idx];
+            
+            if (!ownerFioFilter.empty() && visit.key.owner.toStringView() != ownerFioFilter) {
+                continue;
             }
-                    
-            return reportCount;
+            
+            if (!doctorFioFilter.empty() && visit.doctor.toStringView() != doctorFioFilter) {
+                continue;
+            }
+
+            optional<int> tempIndex = hashtable.find(visit.key);
+            optional<recordPet> petInfo = Pets[*tempIndex];
+            string petTypeStr = petInfo ? petInfo->type : "НЕ НАЙДЕН";
+
+            reportResults[reportCount].petName = visit.key.petName;
+            reportResults[reportCount].ownerFio = visit.key.owner.toStringView();
+            reportResults[reportCount].petType = petTypeStr;
+            reportResults[reportCount].diagnos = visit.diagnos;
+            reportResults[reportCount].doctorFio = visit.doctor.toStringView();
+            reportResults[reportCount].date = visit.time.toString();
+
+            reportCount++;
         }
+                
+        return reportCount;
+    }
 
 
         

@@ -305,9 +305,9 @@
 	"HEADERS" : 
 	[
 		[
-			"C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/src/main_window.hpp",
+			"C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/modules/GUI/main_window.hpp",
 			"MU",
-			"UVLADIE3JM/moc_main_window.cpp",
+			"FYX6CFJBSW/moc_main_window.cpp",
 			null
 		]
 	],

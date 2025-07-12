@@ -5,14 +5,13 @@
 #include <QMainWindow>
 #include <QTableView>
 #include <QStandardItemModel>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QWidget>
 #include <QHeaderView>
 #include <QLabel>
 #include <QMenuBar>
 #include <QMenu>
-#include <QToolBar>
 #include <QAction>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -23,12 +22,50 @@
 #include <QDialogButtonBox>
 #include <QKeySequence>
 #include <QPlainTextEdit>
-#include <QToolButton>
 #include <QTabWidget>
+#include <QPushButton>
+#include <QSpinBox>>
 
-#include "../modules/Manager/Manager.hpp"
-#include "../modules/HelpFunction.hpp"
-#include "../modules/Validator.hpp"
+#include "../Manager/Manager.hpp"
+#include "../HelpFunction.hpp"
+#include "../Validator.hpp"
+
+
+
+class InitSizeDialog : public QDialog {
+    Q_OBJECT
+public:
+    explicit InitSizeDialog(QWidget *parent = nullptr) : QDialog(parent) {
+        setWindowTitle("Начальная настройка");
+        setModal(true); 
+
+        sizeSpinBox = new QSpinBox(this);
+        sizeSpinBox->setMinimum(10);     
+        sizeSpinBox->setMaximum(10000);   
+        sizeSpinBox->setValue(100);       
+
+        QFormLayout *formLayout = new QFormLayout;
+        formLayout->addRow("Начальный размер хеш-таблицы:", sizeSpinBox);
+        
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
+        connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+        
+        QVBoxLayout *mainLayout = new QVBoxLayout(this);
+        mainLayout->addLayout(formLayout);
+        mainLayout->addWidget(buttonBox);
+        setWindowFlags(windowFlags() & ~Qt::WindowCloseButtonHint);
+    }
+
+    int getInitialSize() const {
+        return sizeSpinBox->value();
+    }
+
+private:
+    QSpinBox *sizeSpinBox;
+};
+
+
+
 
 
 class AddPetDialog : public QDialog {
@@ -61,6 +98,34 @@ private:
     QLineEdit *petTypeEdit;
 };
 
+class FindVisitsDialog : public QDialog {
+    Q_OBJECT
+public:
+    explicit FindVisitsDialog(QWidget *parent = nullptr) : QDialog(parent) {
+        setWindowTitle("Найти визиты по питомцу");
+        petNameEdit = new QLineEdit(this);
+        ownerFioEdit = new QLineEdit(this);
+        ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
+        
+        QFormLayout *formLayout = new QFormLayout;
+        formLayout->addRow("Кличка питомца:", petNameEdit);
+        formLayout->addRow("ФИО Владельца:", ownerFioEdit);
+        
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+        connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+        connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+        
+        QVBoxLayout *mainLayout = new QVBoxLayout(this);
+        mainLayout->addLayout(formLayout);
+        mainLayout->addWidget(buttonBox);
+    }
+    ~FindVisitsDialog() {}
+    QString petName() const { return petNameEdit->text(); }
+    QString ownerFio() const { return ownerFioEdit->text(); }
+private:
+    QLineEdit *petNameEdit;
+    QLineEdit *ownerFioEdit;
+};
 
 class AddVisitDialog : public QDialog {
     Q_OBJECT
@@ -201,41 +266,49 @@ private:
 };
 
 
+
+
+
+
 class ReportDialog : public QDialog {
     Q_OBJECT
 public:
     explicit ReportDialog(QWidget *parent = nullptr) : QDialog(parent) {
         setWindowTitle("Параметры отчета");
         ownerFioEdit = new QLineEdit(this);
-        ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество (оставьте пустым для всех)");
-        diagnoseEdit = new QLineEdit(this);
-        diagnoseEdit->setPlaceholderText("Оставьте пустым для всех диагнозов");
+        ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество (оставить пустым для всех)");
+        doctorFioEdit = new QLineEdit(this);
+        doctorFioEdit->setPlaceholderText("Фамилия Имя Отчество (оставить пустым для всех)");
         startDateEdit = new QLineEdit(this);
         startDateEdit->setPlaceholderText("День Месяц Год (например, 1 январь 2023)");
         endDateEdit = new QLineEdit(this);
         endDateEdit->setPlaceholderText("День Месяц Год (например, 31 декабрь 2023)");
+        
         QFormLayout *formLayout = new QFormLayout;
         formLayout->addRow("ФИО Владельца:", ownerFioEdit);
-        formLayout->addRow("Диагноз:", diagnoseEdit);
+        formLayout->addRow("ФИО Доктора:", doctorFioEdit);
         formLayout->addRow("Дата начала периода:", startDateEdit);
         formLayout->addRow("Дата окончания периода:", endDateEdit);
+        
         QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
-        buttonBox->addButton("Посмотреть отчет", QDialogButtonBox::AcceptRole);
-        buttonBox->addButton("Отменить", QDialogButtonBox::RejectRole);
+        buttonBox->addButton("Сформировать", QDialogButtonBox::AcceptRole);
+        buttonBox->addButton("Отмена", QDialogButtonBox::RejectRole);
+        
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+        
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
         mainLayout->addWidget(buttonBox);
     }
     ~ReportDialog() {}
     QString ownerFio() const { return ownerFioEdit->text(); }
-    QString diagnose() const { return diagnoseEdit->text(); }
+    QString doctorFio() const { return doctorFioEdit->text(); }
     QString startDate() const { return startDateEdit->text(); }
     QString endDate() const { return endDateEdit->text(); }
 private:
     QLineEdit *ownerFioEdit;
-    QLineEdit *diagnoseEdit;
+    QLineEdit *doctorFioEdit;
     QLineEdit *startDateEdit;
     QLineEdit *endDateEdit;
 };
@@ -252,14 +325,20 @@ public:
         reportTableView->setModel(reportModel);
         reportTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         reportTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        
+        QPushButton *saveButton = new QPushButton("Сохранить в файл...", this);
+        connect(saveButton, &QPushButton::clicked, this, &ReportViewWindow::saveReportToFile);
+        
         QVBoxLayout *layout = new QVBoxLayout(this);
         layout->addWidget(reportTableView);
+        layout->addWidget(saveButton);
         setLayout(layout);
     }
     
-    void updateReportData(const vector<ReportEntry>& reportData) { 
+    void updateReportData(const ReportEntry* reportData, int count) { 
         reportModel->removeRows(0, reportModel->rowCount());
-        for (const auto& entry : reportData) {
+        for (int i = 0; i < count; ++i) {
+            const auto& entry = reportData[i];
             QList<QStandardItem*> rowItems;
             rowItems << new QStandardItem(QString::fromStdString(entry.petName))
                    << new QStandardItem(QString::fromStdString(entry.ownerFio))
@@ -270,14 +349,70 @@ public:
             reportModel->appendRow(rowItems);
         }
     }
+
+private slots:
+    void saveReportToFile() {
+        QString fileName = QFileDialog::getSaveFileName(this, "Сохранить отчет", "report.txt", "Текстовые файлы (*.txt);;Все файлы (*.*)");
+        if (fileName.isEmpty()) {
+            return;
+        }
+
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&file);
+            for (int row = 0; row < reportModel->rowCount(); ++row) {
+                QStringList rowData;
+                for (int col = 0; col < reportModel->columnCount(); ++col) {
+                    rowData << reportModel->item(row, col)->text();
+                }
+                out << rowData.join(";") << "\n";
+            }
+            QMessageBox::information(this, "Успех", "Отчет успешно сохранен.");
+        } else {
+            QMessageBox::critical(this, "Ошибка", "Не удалось сохранить файл отчета.");
+        }
+    }
+
 private:
     QTableView *reportTableView;
     QStandardItemModel *reportModel;
 };
 
 
-class MainWindow : public QMainWindow
-{
+class FindPetDialog : public QDialog {
+    Q_OBJECT
+public:
+    explicit FindPetDialog(QWidget *parent = nullptr) : QDialog(parent) {
+        setWindowTitle("Найти питомца");
+        petNameEdit = new QLineEdit(this);
+        ownerFioEdit = new QLineEdit(this);
+        ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
+        QFormLayout *formLayout = new QFormLayout;
+        formLayout->addRow("Кличка питомца:", petNameEdit);
+        formLayout->addRow("ФИО Владельца:", ownerFioEdit);
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+        connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+        connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+        QVBoxLayout *mainLayout = new QVBoxLayout(this);
+        mainLayout->addLayout(formLayout);
+        mainLayout->addWidget(buttonBox);
+    }
+    ~FindPetDialog() {}
+    QString petName() const { return petNameEdit->text(); }
+    QString ownerFio() const { return ownerFioEdit->text(); }
+private:
+    QLineEdit *petNameEdit;
+    QLineEdit *ownerFioEdit;
+};
+
+
+
+
+
+
+
+
+class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr) : QMainWindow(parent) {
@@ -293,7 +428,10 @@ public:
     ~MainWindow() {}
 
 private slots:
+
+
     void loadPets() {
+
         QString fileName = QFileDialog::getOpenFileName(this, "Выберите файл с данными о питомцах", "", "Текстовые файлы (*.txt);;Все файлы (*.*)");
         if (fileName.isEmpty()) return;
         manager.readPetsFile(fileName.toStdString());
@@ -302,57 +440,61 @@ private slots:
     }
 
     void loadVisits() {
+
         QString fileName = QFileDialog::getOpenFileName(this, "Выберите файл с данными о визитах", "", "Текстовые файлы (*.txt);;Все файлы (*.*)");
         if (fileName.isEmpty()) return;
         manager.readVisitsFile(fileName.toStdString());
         updateTables();
-        QMessageBox::information(this, "Успех", "Данные о визитах успешно загружены.");
+        if (manager.getVisitsCount() == 0 ){
+            QMessageBox::information(this, "Успешно, но", "Нет записей для существующих питомцев");
+        }else QMessageBox::information(this, "Успех", "Данные о визитах успешно загружены.");
     }
     
     void savePetsToFile() {
-    QString fileName = QFileDialog::getSaveFileName(this, "Сохранить файл питомцев", "pets_saved.txt", "Текстовые файлы (*.txt)");
-    if (fileName.isEmpty()) return;
+        QString fileName = QFileDialog::getSaveFileName(this, "Сохранить файл питомцев", "changePets.txt", "Текстовые файлы (*.txt)");
+        if (fileName.isEmpty()) return;
 
-    QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-        // Строка out.setCodec("UTF-8"); УДАЛЕНА
-
-        auto allPets = manager.getAllActivePets();
-        for (const auto& pet : allPets) {
-            out << QString("%1;%2;%3\n")
-                   .arg(QString::fromStdString(pet.key.petName))
-                   .arg(QString::fromStdString(pet.key.owner.toStringView()))
-                   .arg(QString::fromStdString(pet.type));
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&file);
+            recordPet* petsArray = manager.getPetsArray();
+            int petsCount = manager.getPetsCount();
+            for (int i = 0; i < petsCount; ++i) {
+                const auto& pet = petsArray[i];
+                out << QString("%1;%2;%3\n")
+                    .arg(QString::fromStdString(pet.key.petName))
+                    .arg(QString::fromStdString(pet.key.owner.toStringView()))
+                    .arg(QString::fromStdString(pet.type));
+            }
+            QMessageBox::information(this, "Успех", "Файл питомцев успешно сохранен.");
+        } else {
+            QMessageBox::critical(this, "Ошибка", "Не удалось сохранить файл питомцев.");
         }
-        QMessageBox::information(this, "Успех", "Файл питомцев успешно сохранен.");
-    } else {
-        QMessageBox::critical(this, "Ошибка", "Не удалось сохранить файл питомцев.");
     }
-}
 
-void saveVisitsToFile() {
-    QString fileName = QFileDialog::getSaveFileName(this, "Сохранить файл визитов", "visits_saved.txt", "Текстовые файлы (*.txt)");
-    if (fileName.isEmpty()) return;
+    void saveVisitsToFile() {
+        QString fileName = QFileDialog::getSaveFileName(this, "Сохранить файл визитов", "changeVisits.txt", "Текстовые файлы (*.txt)");
+        if (fileName.isEmpty()) return;
 
-    QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-
-        auto allVisits = manager.getAllActiveVisits();
-        for (const auto& visit : allVisits) {
-            out << QString("%1;%2;%3;%4;%5\n")
-                   .arg(QString::fromStdString(visit.key.petName))
-                   .arg(QString::fromStdString(visit.key.owner.toStringView()))
-                   .arg(QString::fromStdString(visit.diagnos))
-                   .arg(QString::fromStdString(visit.doctor.toStringView()))
-                   .arg(QString::fromStdString(visit.time.toString()));
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream out(&file);
+            recordVisit* visitsArray = manager.getVisitsArray();
+            int visitsCount = manager.getVisitsCount();
+            for (int i = 0; i < visitsCount; ++i) {
+                const auto& visit = visitsArray[i];
+                out << QString("%1;%2;%3;%4;%5\n")
+                    .arg(QString::fromStdString(visit.key.petName))
+                    .arg(QString::fromStdString(visit.key.owner.toStringView()))
+                    .arg(QString::fromStdString(visit.diagnos))
+                    .arg(QString::fromStdString(visit.doctor.toStringView()))
+                    .arg(QString::fromStdString(visit.time.toString()));
+            }
+            QMessageBox::information(this, "Успех", "Файл визитов успешно сохранен.");
+        } else {
+            QMessageBox::critical(this, "Ошибка", "Не удалось сохранить файл визитов.");
         }
-        QMessageBox::information(this, "Успех", "Файл визитов успешно сохранен.");
-    } else {
-        QMessageBox::critical(this, "Ошибка", "Не удалось сохранить файл визитов.");
     }
-}
 
     void showAbout() {
         QMessageBox::about(this, "О программе", "<b>Менеджер ветеринарной клиники v1.0</b>");
@@ -379,7 +521,7 @@ void saveVisitsToFile() {
             if (manager.addPet(key, petType)) {
                 updateTables();
             } else {
-                QMessageBox::warning(this, "Ошибка", "Питомец с таким ключом уже существует.");
+                QMessageBox::warning(this, "Ошибка", "Питомец с таким ключом уже существует или достигнут лимит записей.");
             }
         }
     }
@@ -414,20 +556,18 @@ void saveVisitsToFile() {
             if (manager.addVisit(key, diagnosStr, doctor, time)) {
                 updateTables();
             } else {
-                QMessageBox::warning(this, "Ошибка", "Питомец, для которого добавляется визит, не найден в справочнике питомцев.");
+                QMessageBox::warning(this, "Ошибка", "Питомец не найден или достигнут лимит записей о визитах.");
             }
         }
     }
 
     void removePetBySelection() {
-        
         QModelIndexList selection = petsTableView->selectionModel()->selectedRows();
         if (selection.isEmpty()) {
             QMessageBox::warning(this, "Ошибка", "Выберите питомца для удаления.");
             return;
         }
 
-        //локализация идет нафиг поэтому
         QMessageBox msgBox;
         msgBox.setWindowTitle("Подтверждение");
         msgBox.setText("Удалить выбранного питомца и все связанные с ним визиты?");
@@ -568,39 +708,178 @@ void saveVisitsToFile() {
         }
     }
 
+
+        void findVisits() {
+        FindVisitsDialog dialog(this);
+        if (dialog.exec() == QDialog::Accepted) {
+            string petName = dialog.petName().toUtf8().toStdString();
+            string ownerFio = dialog.ownerFio().toUtf8().toStdString();
+
+            if (!validator.checkPetName(petName) || !validator.checkFIO(ownerFio)) {
+                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат входных данных.");
+                updateVisitsTable();
+                return;
+            }
+
+            string* fioParts = splitstring(ownerFio, ' ');
+            if (!fioParts) {
+                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат ФИО.");
+                updateVisitsTable();
+                return;
+            }
+            Owner owner(fioParts[0], fioParts[1], fioParts[2]);
+            Key key(petName, owner);
+            delete[] fioParts;
+
+            recordVisit foundVisitsArray[1000]; 
+            int foundCount = 0;
+            int searchSteps = 0; 
+
+            manager.findVisits(key, foundVisitsArray, foundCount, searchSteps);
+
+            updateVisitsTable(foundVisitsArray, foundCount);
+
+            QString message = QString("Поиск завершен. Найдено: %1 визитов. Шагов для поиска в дереве: %2.")
+                                  .arg(foundCount)
+                                  .arg(searchSteps);
+            QMessageBox::information(this, "Результаты поиска", message);
+        } else {
+            updateVisitsTable();
+        }
+    }
+
+
+    void findAndShowPet() {
+        FindPetDialog dialog(this);
+        if (dialog.exec() == QDialog::Accepted) {
+            string petName = dialog.petName().toUtf8().toStdString();
+            string ownerFio = dialog.ownerFio().toUtf8().toStdString();
+
+            if (!validator.checkPetName(petName) || !validator.checkFIO(ownerFio)) {
+                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат входных данных.");
+                return;
+            }
+
+            string* fioParts = splitstring(ownerFio, ' ');
+            if (!fioParts) {
+                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат ФИО.");
+                return;
+            }
+            Owner owner(fioParts[0], fioParts[1], fioParts[2]);
+            Key key(petName, owner);
+            delete[] fioParts;
+
+            optional<recordPet> foundPet = manager.findPet(key);
+
+            if (foundPet) {
+                QString petInfo = QString("<b>Кличка:</b> %1<br>"
+                                          "<b>Владелец:</b> %2<br>"
+                                          "<b>Вид:</b> %3")
+                                      .arg(QString::fromStdString(foundPet->key.petName))
+                                      .arg(QString::fromStdString(foundPet->key.owner.toStringView()))
+                                      .arg(QString::fromStdString(foundPet->type));
+                
+                QMessageBox::information(this, "Питомец найден", petInfo);
+            } else {
+                QMessageBox::information(this, "Результат поиска", "Питомец с такими данными не найден.");
+            }
+        }
+    }
+
+
+    Time helpFunc(string str){
+        string* strParts = splitstring(str, ' ');
+        Time time(stoi(strParts[0]), strParts[1], stoi(strParts[2]));
+        delete[] strParts;
+
+        return time;
+    
+    }
+
     void showReportDialog() {
         ReportDialog dialog(this);
         if (dialog.exec() == QDialog::Accepted) {
+
             string ownerFio = dialog.ownerFio().toStdString();
-            string diagnose = dialog.diagnose().toStdString();
+            string doctorFio = dialog.doctorFio().toStdString();
             string startDateStr = dialog.startDate().toStdString();
             string endDateStr = dialog.endDate().toStdString();
-            if (startDateStr.empty() || endDateStr.empty() || !validator.checkDate(startDateStr) || !validator.checkDate(endDateStr)) {
-                QMessageBox::warning(this, "Ошибка ввода", "Даты начала и окончания периода должны быть заполнены и корректны.");
+
+
+            if (ownerFio.empty() && doctorFio.empty() && startDateStr.empty() && endDateStr.empty()) {
+                QMessageBox::warning(this, "Ошибка ввода", "Необходимо указать хотя бы один фильтр.");
                 return;
             }
-            string* startParts = splitstring(startDateStr, ' ');
-            string* endParts = splitstring(endDateStr, ' ');
-            if (!startParts || !endParts) {
-                QMessageBox::critical(this, "Ошибка", "Не удалось разобрать даты.");
-                if(startParts) delete[] startParts;
-                if(endParts) delete[] endParts;
+
+            if (!ownerFio.empty() && !validator.checkFIO(ownerFio)) {
+                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат ФИО владельца.");
                 return;
             }
-            Time startDate(stoi(startParts[0]), startParts[1], stoi(startParts[2]));
-            Time endDate(stoi(endParts[0]), endParts[1], stoi(endParts[2]));
-            delete[] startParts;
-            delete[] endParts;
-            auto reportResults = manager.generateReport(ownerFio, diagnose, startDate, endDate);
+            if (!doctorFio.empty() && !validator.checkFIO(doctorFio)) {
+                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат ФИО доктора.");
+                return;
+            }
+            
+            Time startDate, endDate;
+            
+            if (!startDateStr.empty() && !endDateStr.empty()) {
+                if (!validator.checkDate(startDateStr) || !validator.checkDate(endDateStr)) {
+                    QMessageBox::warning(this, "Ошибка ввода", "Неверный формат одной из дат.");
+                    return;
+                }
+                startDate = helpFunc(startDateStr);
+                endDate = helpFunc(endDateStr);
+                if (endDate < startDate) {
+                    QMessageBox::warning(this, "Ошибка ввода", "Дата окончания периода должна быть не раньше даты начала.");
+                    return;
+                }
+            } 
+            else if (!startDateStr.empty()) {
+                if (!validator.checkDate(startDateStr)) {
+                    QMessageBox::warning(this, "Ошибка ввода", "Неверный формат даты начала периода.");
+                    return;
+                }
+                startDate = helpFunc(startDateStr);
+                endDate = Time(31, "декабрь", 2025);
+            }
+            else if (!endDateStr.empty()) {
+                if (!validator.checkDate(endDateStr)) {
+                    QMessageBox::warning(this, "Ошибка ввода", "Неверный формат даты окончания периода.");
+                    return;
+                }
+                startDate = Time(1, "январь", 2025);
+                endDate = helpFunc(endDateStr);
+            }
+            else {
+                startDate = Time(1, "январь", 2000);
+                endDate = Time(31, "декабрь", 2025);
+            }
+
+            ReportEntry reportData[1000];
+
+            int entryCount = manager.generateReport(
+                ownerFio, 
+                doctorFio,
+                startDate, 
+                endDate,
+                reportData
+            );
+
+            if (entryCount == 0) {
+                QMessageBox::information(this, "Результат", "По заданным критериям ничего не найдено.");
+                return;
+            }
+
             if (reportWindow == nullptr) {
                 reportWindow = new ReportViewWindow(); 
             }
-            reportWindow->updateReportData(reportResults);
+            
+            reportWindow->updateReportData(reportData, entryCount);
             reportWindow->show();
             reportWindow->raise(); 
             reportWindow->activateWindow(); 
+            }
         }
-    }
 
     void showDebugWindow() {
         if (debugWindow == nullptr) {
@@ -617,6 +896,19 @@ void saveVisitsToFile() {
         debugWindow->activateWindow();
     }
 
+
+    void showSetInitialSizeDialog() {
+        InitSizeDialog dialog(this);
+        if (dialog.exec() == QDialog::Accepted) {
+            int newSize = dialog.getInitialSize();
+            if (manager.reinitializeHashTable(newSize)) {
+                QMessageBox::information(this, "Успех", QString("Размер хеш-таблицы успешно установлен на %1.").arg(newSize));
+            } else {
+                QMessageBox::warning(this, "Ошибка", "Не удалось изменить размер хеш-таблицы. В ней уже есть данные.");
+            }
+        }
+    }
+
 private:
     void createMenusAndToolbar() {
         QMenu *fileMenu = menuBar()->addMenu("&Файл");
@@ -627,6 +919,12 @@ private:
         QAction *loadVisitsAction = new QAction("Визиты из файла...", this);
         connect(loadVisitsAction, &QAction::triggered, this, &MainWindow::loadVisits);
         loadMenu->addAction(loadVisitsAction);
+
+        QMenu *settingsMenu = menuBar()->addMenu("&Настройка");
+        QAction *setSizeAction = new QAction("Задать размер таблицы...", this);
+        connect(setSizeAction, &QAction::triggered, this, &MainWindow::showSetInitialSizeDialog);
+        settingsMenu->addAction(setSizeAction);
+
         QMenu *saveMenu = fileMenu->addMenu("&Сохранить");
         QAction *savePetsAction = new QAction("Питомцев в файл...", this);
         connect(savePetsAction, &QAction::triggered, this, &MainWindow::savePetsToFile);
@@ -640,6 +938,17 @@ private:
         fileMenu->addAction(exitAction);
 
         QMenu *editMenu = menuBar()->addMenu("&Правка");
+        
+        QMenu *findMenu = editMenu->addMenu("&Найти");
+        QAction *findPetAction = new QAction("Найти питомца...", this);
+        connect(findPetAction, &QAction::triggered, this, &MainWindow::findAndShowPet);
+        findMenu->addAction(findPetAction);
+        QAction *findVisitsAction = new QAction("Найти визиты...", this);
+        connect(findVisitsAction, &QAction::triggered, this, &MainWindow::findVisits);
+        findMenu->addAction(findVisitsAction);
+
+        editMenu->addSeparator();
+
         QMenu *addMenu = editMenu->addMenu("&Добавить");
         QAction *addPetAction = new QAction("Добавить питомца...", this);
         connect(addPetAction, &QAction::triggered, this, &MainWindow::addPet);
@@ -647,7 +956,7 @@ private:
         QAction *addVisitAction = new QAction("Добавить визит...", this);
         connect(addVisitAction, &QAction::triggered, this, &MainWindow::addVisit);
         addMenu->addAction(addVisitAction);
-        editMenu->addSeparator();
+        
         QMenu *removeMenu = editMenu->addMenu("&Удалить");
         QMenu *removePetSubMenu = removeMenu->addMenu("Удалить питомца");
         QAction* removePetSelectionAction = new QAction("Удалить выделенного", this);
@@ -656,6 +965,7 @@ private:
         QAction* removePetDialogAction = new QAction("Удалить по данным...", this);
         connect(removePetDialogAction, &QAction::triggered, this, &MainWindow::removePetByDialog);
         removePetSubMenu->addAction(removePetDialogAction);
+        
         QMenu *removeVisitSubMenu = removeMenu->addMenu("Удалить визит");
         QAction* removeVisitSelectionAction = new QAction("Удалить выделенный", this);
         connect(removeVisitSelectionAction, &QAction::triggered, this, &MainWindow::removeVisitBySelection);
@@ -673,11 +983,11 @@ private:
         QAction *aboutAction = new QAction("&О программе", this);
         connect(aboutAction, &QAction::triggered, this, &MainWindow::showAbout);
         helpMenu->addAction(aboutAction);
-        QMenu* debugMenu = helpMenu->addMenu("Отладка");
-        QAction *showBothDebugAction = new QAction("Показать всё", this);
-        showBothDebugAction->setShortcut(QKeySequence(Qt::Key_F12));
-        connect(showBothDebugAction, &QAction::triggered, this, &MainWindow::showDebugWindow);
-        debugMenu->addAction(showBothDebugAction);
+        helpMenu->addSeparator();
+        QAction *debugAction = new QAction("Отладка", this);
+        debugAction->setShortcut(QKeySequence(Qt::Key_F12));
+        connect(debugAction, &QAction::triggered, this, &MainWindow::showDebugWindow);
+        helpMenu->addAction(debugAction);
     }
 
     void createMainLayout() {
@@ -688,8 +998,9 @@ private:
         petsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         petsTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
         petsTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        
         QVBoxLayout *petsLayout = new QVBoxLayout;
-        petsLayout->addWidget(new QLabel("<h3>Питомцы (Хэш-таблица)</h3>"));
+        petsLayout->addWidget(new QLabel("<h3>Питомцы</h3>"));
         petsLayout->addWidget(petsTableView);
 
         visitsTableView = new QTableView;
@@ -699,13 +1010,19 @@ private:
         visitsTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         visitsTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
         visitsTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        
+        QPushButton* resetVisitsFilterButton = new QPushButton("Показать все визиты");
+        connect(resetVisitsFilterButton, &QPushButton::clicked, this, &MainWindow::updateTables);
+
         QVBoxLayout *visitsLayout = new QVBoxLayout;
-        visitsLayout->addWidget(new QLabel("<h3>Консультации (АВЛ-дерево)</h3>"));
+        visitsLayout->addWidget(new QLabel("<h3>Приемы</h3>"));
         visitsLayout->addWidget(visitsTableView);
+        visitsLayout->addWidget(resetVisitsFilterButton); 
 
         QHBoxLayout *mainLayout = new QHBoxLayout;
         mainLayout->addLayout(petsLayout);
         mainLayout->addLayout(visitsLayout);
+        
         QWidget *centralWidget = new QWidget;
         centralWidget->setLayout(mainLayout);
         setCentralWidget(centralWidget);
@@ -718,26 +1035,40 @@ private:
 
     void updatePetsTable() {
         petsModel->removeRows(0, petsModel->rowCount());
-        auto activePets = manager.getAllActivePets();
-        for (const auto& pet : activePets) {
+        recordPet* petsArray = manager.getPetsArray();
+        int petsCount = manager.getPetsCount();
+        for (int i = 0; i < petsCount; ++i) {
+            const auto& pet = petsArray[i];
             QList<QStandardItem*> rowItems;
             rowItems << new QStandardItem(QString::fromStdString(pet.key.petName))
-                   << new QStandardItem(QString::fromStdString(pet.key.owner.toStringView())) 
+                   << new QStandardItem(QString::fromStdString(pet.key.owner.toStringView()))
                    << new QStandardItem(QString::fromStdString(pet.type));
             petsModel->appendRow(rowItems);
         }
     }
 
-    void updateVisitsTable() {
+
+    void updateVisitsTable(recordVisit* filteredArray = nullptr, int filteredCount = -1) {
+        recordVisit* visitsArray;
+        int visitsCount;
+
+        if (filteredArray != nullptr && filteredCount != -1) {
+            visitsArray = filteredArray;
+            visitsCount = filteredCount;
+        } else {
+            visitsArray = manager.getVisitsArray();
+            visitsCount = manager.getVisitsCount();
+        }
+        
         visitsModel->removeRows(0, visitsModel->rowCount());
-        auto activeVisits = manager.getAllActiveVisits();
-        for (const auto& visit : activeVisits) {
+        for (int i = 0; i < visitsCount; ++i) {
+            const auto& visit = visitsArray[i];
             QList<QStandardItem*> rowItems;
             rowItems << new QStandardItem(QString::fromStdString(visit.key.petName))
-                   << new QStandardItem(QString::fromStdString(visit.key.owner.toStringView()))
-                   << new QStandardItem(QString::fromStdString(visit.diagnos))
-                   << new QStandardItem(QString::fromStdString(visit.doctor.toStringView()))
-                   << new QStandardItem(QString::fromStdString(visit.time.toString()));
+                << new QStandardItem(QString::fromStdString(visit.key.owner.toStringView()))
+                << new QStandardItem(QString::fromStdString(visit.diagnos))
+                << new QStandardItem(QString::fromStdString(visit.doctor.toStringView()))
+                << new QStandardItem(QString::fromStdString(visit.time.toString()));
             visitsModel->appendRow(rowItems);
         }
     }
@@ -751,4 +1082,4 @@ private:
     ReportViewWindow *reportWindow;
 };
 
-#endif // MAIN_WINDOW_HPP
+#endif

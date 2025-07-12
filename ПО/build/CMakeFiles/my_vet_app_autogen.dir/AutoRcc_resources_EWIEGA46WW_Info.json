@@ -9,8 +9,7 @@
 	"INCLUDE_DIR" : "C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/build/my_vet_app_autogen/include",
 	"INPUTS" : 
 	[
-		"C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/Pets.txt",
-		"C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/Visits.txt"
+		"C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/app_icon.png"
 	],
 	"LOCK_FILE" : "C:/Users/HUAWEI/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u041a\u041f/\u041f\u041e/build/CMakeFiles/my_vet_app_autogen.dir/AutoRcc_resources_EWIEGA46WW_Lock.lock",
 	"MULTI_CONFIG" : false,

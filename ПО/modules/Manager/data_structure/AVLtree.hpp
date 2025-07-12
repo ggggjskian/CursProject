@@ -226,6 +226,7 @@ private:
 
 
     void printTree(TreeNode* node, int indent = 0) {
+
         if (node != nullptr) {
             printTree(node->right, indent + 8);
 
@@ -240,13 +241,16 @@ private:
         }
     }
 
-    TreeNode* search(TreeNode* node, const Key& key) const {
+    TreeNode* search(TreeNode* node, const Key& key, int &step) const {
+
         while (node != nullptr) {
             if (key < node->key) {
                 node = node->left;
+                step++;
             }
             else if (node->key < key) {
                 node = node->right;
+                step++;
             }
             else {
                 return node;
@@ -256,15 +260,44 @@ private:
     }
 
     void clear(TreeNode* node) {
+
         if (node) {
             clear(node->left);
             clear(node->right);
             delete node;
         }
     }
+
+
+
+    void findInRange(TreeNode* node, const Key& date1, const Key& date2, int* results_array,  int& count) {
+
+        if (!node) {
+            return;
+        }
+
+        if (date1 < node->key) {
+            findInRange(node->left, date1, date2, results_array,  count);
+        }
+        
+
+        if (!(node->key < date1) && !(node->key > date2)) {
+            auto* listNode = node->values.getHead();
+            while (listNode) {
+                results_array[count] = listNode->data;
+                count++; 
+                listNode = listNode->next;
+            }
+        }
+
+        if (date2 > node->key) {
+            findInRange(node->right, date1, date2, results_array, count);
+        }
+
+    }
     
     
-    void recursiveToString(TreeNode* node, std::stringstream& ss, int level) const {
+    void recursiveToString(TreeNode* node, stringstream& ss, int level) const {
         if (node == nullptr) {
             return;
         }
@@ -292,14 +325,15 @@ public:
     }
 
     void insert(const Key& key, dataType data) {
+
         bool h = false;
         root = insert(root, key, data, h); 
     }
 
 
 
-    optional<DoubleLinkedList<dataType>> searchList(const Key& key) const {
-        TreeNode* node = search(root, key); 
+    optional<DoubleLinkedList<dataType>> searchList(const Key& key, int &step) const {
+        TreeNode* node = search(root, key, step); 
         if (node) {
             return node->values; 
         }
@@ -313,7 +347,9 @@ public:
     }
 
     bool remove(const Key& key, const dataType& valueToRemove) {
-        TreeNode* node = search(root, key);
+
+        int step = 0;
+        TreeNode* node = search(root, key, step);
         if (!node) {
             return false;
         }
@@ -327,14 +363,26 @@ public:
         return true;
     }
 
+
+    int findInRange(const Key& date1, const Key& date2, int* results_array) {
+
+        int count = 0;
+        findInRange(root, date1, date2, results_array, count);
+        return count;
+    }
+
+
+
     
     
     void remove(const Key& deletekey) {
+
         bool change_bf = false;
         root = remove(root, deletekey, change_bf);
     }
 
     void printTree() {
+
         if (root == nullptr){
             cout << "Дерево не содержит элементов " << endl;
             return;
@@ -343,6 +391,7 @@ public:
     }
 
     string toString() const {
+
         stringstream ss;
         ss << "------ АВЛ-Дерево (структура) ------\n\n";
         recursiveToString(root, ss, 0);

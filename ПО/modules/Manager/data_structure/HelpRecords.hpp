@@ -103,6 +103,9 @@ struct Time {
             }
             this->day = _day;
         } 
+
+
+        Time(): day(0), month(0), years() {}
 };
 
 inline string Time::monthArr[12] = {
@@ -148,6 +151,7 @@ struct recordPet {
     bool isAct;
 
     recordPet(Key _key, string _type): key(_key), type(_type), isAct(true) {}
+    recordPet(): key(), type(""){}
 
     bool operator==(const recordPet& other) const {
         return key == other.key && type == other.type;
@@ -164,11 +168,13 @@ struct recordVisit {
     string diagnos;
     Doctor doctor;
     Time time;
-    bool isAct;
-
 
     recordVisit(Key _key, string _diagnos, Doctor _doctor, Time _time) : 
-                 key(_key), diagnos(_diagnos), doctor(_doctor), time(_time), isAct(true){}
+                 key(_key), diagnos(_diagnos), doctor(_doctor), time(_time) {
+    }
+
+    recordVisit() : key(), diagnos(""), doctor(), time(){}
+
 
     bool operator==(const recordVisit& other) const {
         return key == other.key && diagnos == other.diagnos && doctor == other.doctor && time == other.time;

@@ -1,46 +1,53 @@
 # ninja log v6
-1389	6784	7733542672152773	CMakeFiles/my_vet_app.dir/src/main_window.cpp.obj	d4568992976448e3
-1042	1213	7733579673428033	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp.obj	5fc96cb54392c4c8
-846	999	7733579672929663	my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp	3e535f87dd1ad418
-8250	8762	7736570375776381	my_vet_app.exe	7dc7619c41ba2153
-1727	8249	7736570310485334	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
-23	1721	7736570309252240	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-1758	7998	7736570310850101	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
-23	1721	7736570309252240	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+88	3184	7740352301121955	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/cmake_install.cmake	3bfb907989b47bef
+88	3184	7740352301278194	build.ninja	3bfb907989b47bef
+38	1828	7740345636491862	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+38	1828	7740345636491862	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
 846	999	7733579672929663	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp	3e535f87dd1ad418
-23	1721	7736570309252240	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-23	1721	7736570309252240	my_vet_app_autogen/timestamp	d2ee6c5ce861676
-9	855	7733555188482932	build.ninja	3bfb907989b47bef
-9	855	7733555188482932	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/cmake_install.cmake	3bfb907989b47bef
-28	1485	7736571941135770	my_vet_app_autogen/timestamp	d2ee6c5ce861676
-28	1485	7736571941135770	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-28	1485	7736571941135770	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
-28	1485	7736571941135770	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-1511	7646	7736571942185476	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
-1490	7914	7736571941869763	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
-7914	8505	7736572006201487	my_vet_app.exe	7dc7619c41ba2153
-19	1530	7736572747210309	my_vet_app_autogen/timestamp	d2ee6c5ce861676
-19	1530	7736572747210309	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-19	1530	7736572747210309	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
-19	1530	7736572747210309	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-1552	7426	7736572748320426	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
-1534	7698	7736572748163980	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
-7699	8155	7736572809780593	my_vet_app.exe	7dc7619c41ba2153
-22	1537	7736573976441808	my_vet_app_autogen/timestamp	d2ee6c5ce861676
-22	1537	7736573976441808	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-22	1537	7736573976441808	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
-22	1537	7736573976441808	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-1567	7555	7736573977969959	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
-1540	7920	7736573977732397	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
-7921	8375	7736574041420663	my_vet_app.exe	7dc7619c41ba2153
-23	1764	7736581506851819	my_vet_app_autogen/timestamp	d2ee6c5ce861676
-23	1764	7736581506851819	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-23	1764	7736581506851819	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
-23	1764	7736581506851819	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-20	1748	7736581846527657	my_vet_app_autogen/timestamp	d2ee6c5ce861676
-20	1748	7736581846527657	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-20	1748	7736581846527657	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
-20	1748	7736581846527657	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
-1778	8592	7736581848200288	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
-1751	8902	7736581847867985	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
-8903	9347	7736581919434945	my_vet_app.exe	7dc7619c41ba2153
+38	1828	7740345636491862	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+1938	5519	7740345639992471	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
+38	1828	7740345636491862	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+1830	5660	7740345638991901	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
+5661	5998	7740345677327197	my_vet_app.exe	7dc7619c41ba2153
+846	999	7733579672929663	my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp	3e535f87dd1ad418
+1042	1213	7733579673428033	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp.obj	5fc96cb54392c4c8
+1389	6784	7733542672152773	CMakeFiles/my_vet_app.dir/src/main_window.cpp.obj	d4568992976448e3
+18	3286	7740352301278194	build.ninja	3bfb907989b47bef
+18	3286	7740352301278194	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/cmake_install.cmake	3bfb907989b47bef
+65	703	7740352305236968	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+65	703	7740352305236968	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+65	703	7740352305236968	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+65	703	7740352305236968	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+708	984	7740352314089707	my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp	3e535f87dd1ad418
+708	984	7740352314089707	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp	3e535f87dd1ad418
+1016	1443	7740352314643613	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp.obj	5fc96cb54392c4c8
+986	6109	7740352314329672	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
+6111	6718	7740352365624160	my_vet_app.exe	7dc7619c41ba2153
+65	669	7740354667396091	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+65	669	7740354667396091	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+65	669	7740354667396091	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+65	669	7740354667396091	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+677	5854	7740354673482059	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
+5855	6259	7740354725288716	my_vet_app.exe	7dc7619c41ba2153
+38	3419	7740367275596250	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+38	3419	7740367275596250	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+38	3419	7740367275596250	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+38	3419	7740367275596250	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+24	2819	7740367975410197	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+24	2819	7740367975410197	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+24	2819	7740367975410197	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+24	2819	7740367975410197	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+54	2309	7740369909144194	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+54	2309	7740369909144194	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+54	2309	7740369909144194	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+54	2309	7740369909144194	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+2343	10571	7740369911208102	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
+2314	11370	7740369910866140	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
+11371	12185	7740370001350608	my_vet_app.exe	7dc7619c41ba2153
+45	1488	7740382213546561	my_vet_app_autogen/timestamp	d2ee6c5ce861676
+45	1488	7740382213546561	my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+45	1488	7740382213546561	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/timestamp	d2ee6c5ce861676
+45	1488	7740382213546561	C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/my_vet_app_autogen/mocs_compilation.cpp	d2ee6c5ce861676
+1512	7105	7740382214687849	CMakeFiles/my_vet_app.dir/src/main.cpp.obj	f9312599de2b18dd
+1491	7343	7740382214530418	CMakeFiles/my_vet_app.dir/my_vet_app_autogen/mocs_compilation.cpp.obj	f223d5aacad609ef
+7343	7705	7740382273039098	my_vet_app.exe	7dc7619c41ba2153

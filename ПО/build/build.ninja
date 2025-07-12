@@ -135,7 +135,7 @@ build my_vet_app_autogen/timestamp my_vet_app_autogen/mocs_compilation.cpp | ${c
 #############################################
 # Custom command for my_vet_app_autogen\EWIEGA46WW\qrc_resources.cpp
 
-build my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp | ${cmake_ninja_workdir}my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp: CUSTOM_COMMAND C$:/Users/HUAWEI/OneDrive/Рабочий$ стол/КП/ПО/resources.qrc CMakeFiles/my_vet_app_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json C$:/Users/HUAWEI/OneDrive/Рабочий$ стол/КП/ПО/Pets.txt C$:/Users/HUAWEI/OneDrive/Рабочий$ стол/КП/ПО/Visits.txt C$:/msys64/mingw64/share/qt6/bin/rcc.exe C$:/msys64/mingw64/share/qt6/bin/rcc.exe || my_vet_app_autogen my_vet_app_autogen_timestamp_deps
+build my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp | ${cmake_ninja_workdir}my_vet_app_autogen/EWIEGA46WW/qrc_resources.cpp: CUSTOM_COMMAND C$:/Users/HUAWEI/OneDrive/Рабочий$ стол/КП/ПО/resources.qrc CMakeFiles/my_vet_app_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json C$:/Users/HUAWEI/OneDrive/Рабочий$ стол/КП/ПО/app_icon.png C$:/msys64/mingw64/share/qt6/bin/rcc.exe C$:/msys64/mingw64/share/qt6/bin/rcc.exe || my_vet_app_autogen my_vet_app_autogen_timestamp_deps
   COMMAND = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\HUAWEI\OneDrive\Рабочий стол\КП\ПО\build" && C:\msys64\mingw64\bin\cmake.exe -E cmake_autorcc "C:/Users/HUAWEI/OneDrive/Рабочий стол/КП/ПО/build/CMakeFiles/my_vet_app_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json" "
   DESC = Automatic RCC for resources.qrc
   restat = 1
