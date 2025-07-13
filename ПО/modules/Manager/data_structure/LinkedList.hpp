@@ -153,29 +153,6 @@ public:
     }
 
 
-    void crossingWith( const DoubleLinkedList<dataType>& withList) {
-        DoubleLinkedList<dataType> newList;
-        ListNode* current1 = head;
-        ListNode* current2 = withList.head;
-
-        while (current1 && current2) {
-            if (current1->data == current2->data) {
-                newList.add(current1->data); 
-                current1 = current1->next;
-                current2 = current2->next;
-            } else if (current1->data < current2->data) {
-                current1 = current1->next;
-            } else {
-                current2 = current2->next;
-            }
-        }
-        this->clearList();
-        this->head = newList.head;
-        newList.head = nullptr;
-        
-    }
-
-
     string toString(){
         string temp = "[";
         ListNode* current = head;

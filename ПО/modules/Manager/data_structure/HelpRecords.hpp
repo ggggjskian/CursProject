@@ -43,24 +43,24 @@ struct Doctor : Person {
     using Person::Person;
 };
 
-struct Time {
+struct Date {
         int day;
         int month;
         int years;
 
         static string monthArr[12];
-        bool operator==(const Time& other) const {
+        bool operator==(const Date& other) const {
             return day == other.day && month == other.month && years == other.years;
         }
 
-        bool operator<(const Time& other) const {
+        bool operator<(const Date& other) const {
 
             if(years != other.years) return years < other.years;
             if (month != other.month) return month < other.month;
             return day < other.day;
         }
 
-        bool operator>(const Time& other) const {
+        bool operator>(const Date& other) const {
             return other < *this;
         }
 
@@ -80,7 +80,7 @@ struct Time {
             return to_string(day) + " " + numberToMonth(month) + " " + to_string(years);
         }
 
-        Time(int _day, string _month, int _years){
+        Date(int _day, string _month, int _years){
 
             if (_years < 2000|| _years > 2025) {
                 throw invalid_argument("Invalid year: " + to_string(_years));
@@ -105,10 +105,10 @@ struct Time {
         } 
 
 
-        Time(): day(0), month(0), years() {}
+        Date(): day(0), month(0), years() {}
 };
 
-inline string Time::monthArr[12] = {
+inline string Date::monthArr[12] = {
         "январь", "февраль", "март",
         "апрель", "май", "июнь", 
         "июль", "август", "сентябрь", 
@@ -148,9 +148,8 @@ struct Key {
 struct recordPet {
     Key key;
     string type;
-    bool isAct;
 
-    recordPet(Key _key, string _type): key(_key), type(_type), isAct(true) {}
+    recordPet(Key _key, string _type): key(_key), type(_type) {}
     recordPet(): key(), type(""){}
 
     bool operator==(const recordPet& other) const {
@@ -158,7 +157,7 @@ struct recordPet {
     }
 
     string toString() {
-        return key.toString() + " " + type;
+        return key.toStringView() + " " + type;
     }
 
 };
@@ -167,22 +166,22 @@ struct recordVisit {
     Key key;
     string diagnos;
     Doctor doctor;
-    Time time;
+    Date date;
 
-    recordVisit(Key _key, string _diagnos, Doctor _doctor, Time _time) : 
-                 key(_key), diagnos(_diagnos), doctor(_doctor), time(_time) {
+    recordVisit(Key _key, string _diagnos, Doctor _doctor, Date _date) : 
+                 key(_key), diagnos(_diagnos), doctor(_doctor), date(_date) {
     }
 
-    recordVisit() : key(), diagnos(""), doctor(), time(){}
+    recordVisit() : key(), diagnos(""), doctor(), date(){}
 
 
     bool operator==(const recordVisit& other) const {
-        return key == other.key && diagnos == other.diagnos && doctor == other.doctor && time == other.time;
+        return key == other.key && diagnos == other.diagnos && doctor == other.doctor && date == other.date;
     }
 
 
     string toString() {
-        return key.toString() + " " + diagnos + " " + doctor.toStringView() + " " + time.toString();
+        return key.toString() + " " + diagnos + " " + doctor.toStringView() + " " + date.toString();
     }
 
 };

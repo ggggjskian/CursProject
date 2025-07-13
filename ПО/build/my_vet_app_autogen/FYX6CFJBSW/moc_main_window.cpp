@@ -32,6 +32,63 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
+struct qt_meta_tag_ZN14InitSizeDialogE_t {};
+} // unnamed namespace
+
+template <> constexpr inline auto InitSizeDialog::qt_create_metaobjectdata<qt_meta_tag_ZN14InitSizeDialogE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "InitSizeDialog"
+    };
+
+    QtMocHelpers::UintData qt_methods {
+    };
+    QtMocHelpers::UintData qt_properties {
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<InitSizeDialog, qt_meta_tag_ZN14InitSizeDialogE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
+Q_CONSTINIT const QMetaObject InitSizeDialog::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN14InitSizeDialogE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN14InitSizeDialogE_t>.data,
+    qt_static_metacall,
+    nullptr,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN14InitSizeDialogE_t>.metaTypes,
+    nullptr
+} };
+
+void InitSizeDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    auto *_t = static_cast<InitSizeDialog *>(_o);
+    (void)_t;
+    (void)_c;
+    (void)_id;
+    (void)_a;
+}
+
+const QMetaObject *InitSizeDialog::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *InitSizeDialog::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN14InitSizeDialogE_t>.strings))
+        return static_cast<void*>(this);
+    return QDialog::qt_metacast(_clname);
+}
+
+int InitSizeDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QDialog::qt_metacall(_c, _id, _a);
+    return _id;
+}
+namespace {
 struct qt_meta_tag_ZN12AddPetDialogE_t {};
 } // unnamed namespace
 
@@ -609,11 +666,12 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "findVisits",
         "findAndShowPet",
         "helpFunc",
-        "Time",
+        "Date",
         "string",
         "str",
         "showReportDialog",
-        "showDebugWindow"
+        "showDebugWindow",
+        "showSetInitialSizeDialog"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -644,13 +702,15 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         // Slot 'findAndShowPet'
         QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'helpFunc'
-        QtMocHelpers::SlotData<Time(string)>(15, 2, QMC::AccessPrivate, 0x80000000 | 16, {{
+        QtMocHelpers::SlotData<Date(string)>(15, 2, QMC::AccessPrivate, 0x80000000 | 16, {{
             { 0x80000000 | 17, 18 },
         }}),
         // Slot 'showReportDialog'
         QtMocHelpers::SlotData<void()>(19, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'showDebugWindow'
         QtMocHelpers::SlotData<void()>(20, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'showSetInitialSizeDialog'
+        QtMocHelpers::SlotData<void()>(21, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -687,10 +747,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->removeVisitByDialog(); break;
         case 11: _t->findVisits(); break;
         case 12: _t->findAndShowPet(); break;
-        case 13: { Time _r = _t->helpFunc((*reinterpret_cast< std::add_pointer_t<string>>(_a[1])));
-            if (_a[0]) *reinterpret_cast< Time*>(_a[0]) = std::move(_r); }  break;
+        case 13: { Date _r = _t->helpFunc((*reinterpret_cast< std::add_pointer_t<string>>(_a[1])));
+            if (_a[0]) *reinterpret_cast< Date*>(_a[0]) = std::move(_r); }  break;
         case 14: _t->showReportDialog(); break;
         case 15: _t->showDebugWindow(); break;
+        case 16: _t->showSetInitialSizeDialog(); break;
         default: ;
         }
     }
@@ -715,14 +776,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 17;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 17)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 16;
+        _id -= 17;
     }
     return _id;
 }

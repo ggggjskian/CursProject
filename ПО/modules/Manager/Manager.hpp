@@ -23,7 +23,7 @@ class Manager{
         int petsCount;
         int visitsCount;
 
-        AVLTree<Time, int> sortTree; 
+        AVLTree<Date, int> sortTree; 
 
 
     public:
@@ -70,9 +70,7 @@ class Manager{
             if (petsCount > 0) {
                 return false;
             }
-
-
-            hashtable = HashTable<Key, int>(newSize);
+            hashtable.setInitialSize(newSize);
             return true;
         }
 
@@ -97,8 +95,8 @@ class Manager{
                     string* temp3 = splitstring(temp[3],' '); 
                     Doctor doctor(temp3[0],temp3[1],temp3[2]);
                     string* temp4 = splitstring(temp[4],' ');
-                    Time time(stoi(temp4[0]), temp4[1], stoi(temp4[2]));
-                    if (this->addVisit(key, temp[2], doctor,time)){
+                    Date date(stoi(temp4[0]), temp4[1], stoi(temp4[2]));
+                    if (this->addVisit(key, temp[2], doctor,date)){
                         cout << "Прочитана запись из файла" << endl;}
                     else cout <<  "Нет связной записи в справочнике1" << endl; 
 
@@ -129,12 +127,12 @@ class Manager{
             return false;
         }
 
-        bool addVisit(const Key& key, string diagnos, Doctor doctor, Time time){
+        bool addVisit(const Key& key, string diagnos, Doctor doctor, Date date){
             
             if(hashtable.find(key)){
                 tree.insert(key, visitsCount);
-                sortTree.insert(time, visitsCount);
-                Visits[visitsCount] = recordVisit(key, diagnos, doctor, time);
+                sortTree.insert(date, visitsCount);
+                Visits[visitsCount] = recordVisit(key, diagnos, doctor, date);
                 visitsCount++;
                 return true;
             }
@@ -163,11 +161,11 @@ class Manager{
                 
                 recordVisit visit_to_delete = Visits[indexToDelete];
 
-                removeVisit(visit_to_delete.key, visit_to_delete.diagnos, visit_to_delete.doctor, visit_to_delete.time);
+                removeVisit(visit_to_delete.key, visit_to_delete.diagnos, visit_to_delete.doctor, visit_to_delete.date);
             }
         }
 
-        bool removePet(const Key& key, const std::string& type) {
+        bool removePet(const Key& key, const string& type) {
 
             optional<int> temp = hashtable.find(key);
             if (!temp) {
@@ -205,7 +203,7 @@ class Manager{
             return true;
         }
 
-        bool removeVisit(const Key& key, string diagnos, Doctor doctor, const Time& time) {
+        bool removeVisit(const Key& key, string diagnos, Doctor doctor, const Date& date) {
             
             int step  = 0;
             optional<DoubleLinkedList<int>> listNumbers = tree.searchList(key, step);
@@ -219,7 +217,7 @@ class Manager{
 
             int indexToDel = -1;
             auto* currentNode = listNumbers->getHead();
-            recordVisit visitToDel(key, diagnos, doctor, time);
+            recordVisit visitToDel(key, diagnos, doctor, date);
 
             while (currentNode != nullptr) {
                 int temp = currentNode->data;
@@ -235,7 +233,7 @@ class Manager{
                 return false;
             }
             
-            if (!(tree.remove(key, indexToDel) && sortTree.remove(time, indexToDel))){
+            if (!(tree.remove(key, indexToDel) && sortTree.remove(date, indexToDel))){
                 return false;
             }
             
@@ -246,10 +244,10 @@ class Manager{
 
             auto temp = Visits[visitsCount - 1]; 
             tree.remove(temp.key, visitsCount - 1); 
-            sortTree.remove(temp.time, visitsCount -1);
+            sortTree.remove(temp.date, visitsCount -1);
             
             tree.insert(temp.key, indexToDel); 
-            sortTree.insert(temp.time, indexToDel); 
+            sortTree.insert(temp.date, indexToDel); 
 
             Visits[indexToDel] = temp;
 
@@ -329,39 +327,41 @@ class Manager{
 
 
 
-    int generateReport(const std::string& ownerFioFilter, const std::string& doctorFioFilter, const Time& startDate, const Time& endDate, ReportEntry* reportResults) {
-            int reportCount = 0;
-            int visitIndices[1000];
-            int foundCount = sortTree.findInRange(startDate, endDate, visitIndices);
+    int generateReport(const string& ownerFioFilter, const string& diagnoseFilter, const Date& startDate, const Date& endDate, ReportEntry* reportResults) {
+        int reportCount = 0;
+        int visitIndices[1000];
+        int foundCount = sortTree.findInRange(startDate, endDate, visitIndices);
 
-            for (int i = 0; i < foundCount; ++i) {
-                int idx = visitIndices[i];
-                const auto& visit = Visits[idx];
-                
-                if (!ownerFioFilter.empty() && visit.key.owner.toStringView() != ownerFioFilter) {
-                    continue;
-                }
-                
-                if (!doctorFioFilter.empty() && visit.doctor.toStringView() != doctorFioFilter) {
-                    continue;
-                }
-
-                optional<int> tempIndex = hashtable.find(visit.key);
-                optional<recordPet> petInfo = Pets[*tempIndex];
-                string petTypeStr = petInfo ? petInfo->type : "НЕ НАЙДЕН";
-
-                reportResults[reportCount].petName = visit.key.petName;
-                reportResults[reportCount].ownerFio = visit.key.owner.toStringView();
-                reportResults[reportCount].petType = petTypeStr;
-                reportResults[reportCount].diagnos = visit.diagnos;
-                reportResults[reportCount].doctorFio = visit.doctor.toStringView();
-                reportResults[reportCount].date = visit.time.toString();
-
-                reportCount++;
+        for (int i = 0; i < foundCount; ++i) {
+            int idx = visitIndices[i];
+            const auto& visit = Visits[idx];
+            
+            if (!ownerFioFilter.empty() && visit.key.owner.toStringView() != ownerFioFilter) {
+                continue;
             }
-                    
-            return reportCount;
+            
+            if (!diagnoseFilter.empty() && visit.diagnos != diagnoseFilter) {
+                continue;
+            }
+
+            optional<int> petIndexOpt = hashtable.find(visit.key);
+            string petTypeStr = "НЕ НАЙДЕН";
+            if (petIndexOpt) {
+                petTypeStr = Pets[*petIndexOpt].type;
+            }
+
+            reportResults[reportCount].petName = visit.key.petName;
+            reportResults[reportCount].ownerFio = visit.key.owner.toStringView();
+            reportResults[reportCount].petType = petTypeStr;
+            reportResults[reportCount].diagnos = visit.diagnos;
+            reportResults[reportCount].doctorFio = visit.doctor.toStringView();
+            reportResults[reportCount].date = visit.date.toString();
+
+            reportCount++;
         }
+                
+        return reportCount;
+    }
 
 
         

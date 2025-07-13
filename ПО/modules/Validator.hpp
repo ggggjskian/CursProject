@@ -35,7 +35,7 @@ class Validator {
             return pattern.match(q_type).hasMatch();
         }
 
-        static bool checkDate(const std::string& dateStr) {
+        static bool checkDate(const string& dateStr) {
             
             size_t firstSpace = dateStr.find(' ');
             if (firstSpace == string::npos) {
@@ -52,7 +52,7 @@ class Validator {
             string yearPart = dateStr.substr(secondSpace + 1);
 
             try {
-                Time testTime(stoi(dayPart), monthPart, stoi(yearPart));
+                Date testDate(stoi(dayPart), monthPart, stoi(yearPart));
             } catch (const exception& e) {
                 return false;
             }

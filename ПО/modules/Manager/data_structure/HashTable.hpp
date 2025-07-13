@@ -162,6 +162,11 @@ class HashTable {
             return false;
         }
 
+
+
+
+        
+
     public:
 
         HashTable(int N) : initialSize(N), Ntable(N), arrNode(new Node[N]), count(0) {}
@@ -244,6 +249,14 @@ class HashTable {
             }
             
             return ss.str();
+        }
+
+
+        void setInitialSize(int newSize) {
+            if (this->count == 0 && newSize > 0) {
+                rehash(newSize);
+            this->initialSize = newSize; 
+            }
         }
 
 };

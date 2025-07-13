@@ -22,10 +22,9 @@
 #include <QDialogButtonBox>
 #include <QKeySequence>
 #include <QPlainTextEdit>
-#include <QTabWidget>
+#include <QTabWidget>   
 #include <QPushButton>
-#include <QSpinBox>>
-
+#include <QSpinBox>
 #include "../Manager/Manager.hpp"
 #include "../HelpFunction.hpp"
 #include "../Validator.hpp"
@@ -66,17 +65,17 @@ private:
 
 
 
-
-
 class AddPetDialog : public QDialog {
     Q_OBJECT
 public:
     explicit AddPetDialog(QWidget *parent = nullptr) : QDialog(parent) {
         setWindowTitle("Добавить нового питомца");
         petNameEdit = new QLineEdit(this);
+        petNameEdit->setPlaceholderText("С большой буквы");
         ownerFioEdit = new QLineEdit(this);
         ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
         petTypeEdit = new QLineEdit(this);
+        petTypeEdit->setPlaceholderText("Например: кот, собака, попугай");
         QFormLayout *formLayout = new QFormLayout;
         formLayout->addRow("Кличка:", petNameEdit);
         formLayout->addRow("ФИО Владельца:", ownerFioEdit);
@@ -84,6 +83,10 @@ public:
         QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+        buttonBox->button(QDialogButtonBox::Ok)->setText("Добавить");
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Назад");
+
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
         mainLayout->addWidget(buttonBox);
@@ -114,6 +117,9 @@ public:
         QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+        buttonBox->button(QDialogButtonBox::Ok)->setText("Поиск");
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Назад");
         
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
@@ -131,12 +137,14 @@ class AddVisitDialog : public QDialog {
     Q_OBJECT
 public:
     explicit AddVisitDialog(QWidget *parent = nullptr) : QDialog(parent) {
-        setWindowTitle("Добавить новый визит");
+        setWindowTitle("Добавить новый  прием");
         petNameEdit = new QLineEdit(this);
+        petNameEdit->setPlaceholderText("С большой буквы");
         ownerFioEdit = new QLineEdit(this);
         ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
         diagnoseEdit = new QLineEdit(this);
         doctorFioEdit = new QLineEdit(this);
+        doctorFioEdit->setPlaceholderText("Фамилия Имя Отчество");
         dataEdit = new QLineEdit(this);
         dataEdit->setPlaceholderText("День Месяц Год (например, 15 май 2023)");
         QFormLayout *formLayout = new QFormLayout;
@@ -148,6 +156,10 @@ public:
         QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+        buttonBox->button(QDialogButtonBox::Ok)->setText("Добавить");
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Назад");
+
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
         mainLayout->addWidget(buttonBox);
@@ -172,9 +184,11 @@ public:
     explicit RemovePetDialog(QWidget *parent = nullptr) : QDialog(parent) {
         setWindowTitle("Удалить питомца");
         petNameEdit = new QLineEdit(this);
+        petNameEdit->setPlaceholderText("С большой буквы");
         ownerFioEdit = new QLineEdit(this);
         ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
         petTypeEdit = new QLineEdit(this);
+        petTypeEdit->setPlaceholderText("Например: кот, собака, попугай");
         QFormLayout *formLayout = new QFormLayout;
         formLayout->addRow("Кличка:", petNameEdit);
         formLayout->addRow("ФИО Владельца:", ownerFioEdit);
@@ -182,6 +196,10 @@ public:
         QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+        buttonBox->button(QDialogButtonBox::Ok)->setText("Удалить");
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Назад");
+
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
         mainLayout->addWidget(buttonBox);
@@ -200,7 +218,7 @@ class RemoveVisitDialog : public QDialog {
     Q_OBJECT
 public:
     explicit RemoveVisitDialog(QWidget *parent = nullptr) : QDialog(parent) {
-        setWindowTitle("Удалить визит");
+        setWindowTitle("Удалить  прием");
         petNameEdit = new QLineEdit(this);
         ownerFioEdit = new QLineEdit(this);
         ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
@@ -217,6 +235,10 @@ public:
         QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+        buttonBox->button(QDialogButtonBox::Ok)->setText("Удалить");
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Назад");
+
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
         mainLayout->addWidget(buttonBox);
@@ -249,7 +271,7 @@ public:
         avlTreeView = new QPlainTextEdit(this);
         avlTreeView->setReadOnly(true);
         avlTreeView->setFont(QFont("Consolas", 10));
-        tabWidget->addTab(avlTreeView, "АВЛ-дерево (Визиты)");
+        tabWidget->addTab(avlTreeView, "АВЛ-дерево (Приемы)");
         QVBoxLayout *layout = new QVBoxLayout(this);
         layout->addWidget(tabWidget);
         setLayout(layout);
@@ -266,10 +288,6 @@ private:
 };
 
 
-
-
-
-
 class ReportDialog : public QDialog {
     Q_OBJECT
 public:
@@ -277,8 +295,8 @@ public:
         setWindowTitle("Параметры отчета");
         ownerFioEdit = new QLineEdit(this);
         ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество (оставить пустым для всех)");
-        doctorFioEdit = new QLineEdit(this);
-        doctorFioEdit->setPlaceholderText("Фамилия Имя Отчество (оставить пустым для всех)");
+        diagnoseEdit = new QLineEdit(this);
+        diagnoseEdit->setPlaceholderText("Оставить пустым для всех диагнозов");
         startDateEdit = new QLineEdit(this);
         startDateEdit->setPlaceholderText("День Месяц Год (например, 1 январь 2023)");
         endDateEdit = new QLineEdit(this);
@@ -286,13 +304,13 @@ public:
         
         QFormLayout *formLayout = new QFormLayout;
         formLayout->addRow("ФИО Владельца:", ownerFioEdit);
-        formLayout->addRow("ФИО Доктора:", doctorFioEdit);
+        formLayout->addRow("Диагноз:", diagnoseEdit);
         formLayout->addRow("Дата начала периода:", startDateEdit);
         formLayout->addRow("Дата окончания периода:", endDateEdit);
         
         QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
         buttonBox->addButton("Сформировать", QDialogButtonBox::AcceptRole);
-        buttonBox->addButton("Отмена", QDialogButtonBox::RejectRole);
+        buttonBox->addButton("Назад", QDialogButtonBox::RejectRole);
         
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
@@ -303,12 +321,12 @@ public:
     }
     ~ReportDialog() {}
     QString ownerFio() const { return ownerFioEdit->text(); }
-    QString doctorFio() const { return doctorFioEdit->text(); }
+    QString diagnose() const { return diagnoseEdit->text(); }
     QString startDate() const { return startDateEdit->text(); }
     QString endDate() const { return endDateEdit->text(); }
 private:
     QLineEdit *ownerFioEdit;
-    QLineEdit *doctorFioEdit;
+    QLineEdit *diagnoseEdit;
     QLineEdit *startDateEdit;
     QLineEdit *endDateEdit;
 };
@@ -326,7 +344,7 @@ public:
         reportTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         reportTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         
-        QPushButton *saveButton = new QPushButton("Сохранить в файл...", this);
+        QPushButton *saveButton = new QPushButton("Сохранить отчет в файл...", this);
         connect(saveButton, &QPushButton::clicked, this, &ReportViewWindow::saveReportToFile);
         
         QVBoxLayout *layout = new QVBoxLayout(this);
@@ -349,6 +367,8 @@ public:
             reportModel->appendRow(rowItems);
         }
     }
+
+
 
 private slots:
     void saveReportToFile() {
@@ -384,28 +404,37 @@ class FindPetDialog : public QDialog {
 public:
     explicit FindPetDialog(QWidget *parent = nullptr) : QDialog(parent) {
         setWindowTitle("Найти питомца");
+
         petNameEdit = new QLineEdit(this);
+        petNameEdit->setPlaceholderText("С большой буквы");
+
         ownerFioEdit = new QLineEdit(this);
         ownerFioEdit->setPlaceholderText("Фамилия Имя Отчество");
+
         QFormLayout *formLayout = new QFormLayout;
         formLayout->addRow("Кличка питомца:", petNameEdit);
         formLayout->addRow("ФИО Владельца:", ownerFioEdit);
+
         QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
         connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+        buttonBox->button(QDialogButtonBox::Ok)->setText("Поиск");
+        buttonBox->button(QDialogButtonBox::Cancel)->setText("Назад");
+
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->addLayout(formLayout);
         mainLayout->addWidget(buttonBox);
     }
+
     ~FindPetDialog() {}
+
     QString petName() const { return petNameEdit->text(); }
     QString ownerFio() const { return ownerFioEdit->text(); }
+
 private:
     QLineEdit *petNameEdit;
     QLineEdit *ownerFioEdit;
 };
-
-
 
 
 
@@ -488,7 +517,7 @@ private slots:
                     .arg(QString::fromStdString(visit.key.owner.toStringView()))
                     .arg(QString::fromStdString(visit.diagnos))
                     .arg(QString::fromStdString(visit.doctor.toStringView()))
-                    .arg(QString::fromStdString(visit.time.toString()));
+                    .arg(QString::fromStdString(visit.date.toString()));
             }
             QMessageBox::information(this, "Успех", "Файл визитов успешно сохранен.");
         } else {
@@ -497,7 +526,7 @@ private slots:
     }
 
     void showAbout() {
-        QMessageBox::about(this, "О программе", "<b>Менеджер ветеринарной клиники v1.0</b>");
+        QMessageBox::about(this, "О программе", "<b> ПО для предметной области Ветеринарная клиники. Ткачев Б9123-09.03.04</b>");
     }
 
     void addPet() {
@@ -551,9 +580,9 @@ private slots:
             Doctor doctor (doctorParts[0], doctorParts[1], doctorParts[2]);
             delete[] doctorParts;
             string* timeParts = splitstring(timeStr, ' ');
-            Time time (stoi(timeParts[0]), timeParts[1], stoi(timeParts[2]));
+            Date date (stoi(timeParts[0]), timeParts[1], stoi(timeParts[2]));
             delete[] timeParts; 
-            if (manager.addVisit(key, diagnosStr, doctor, time)) {
+            if (manager.addVisit(key, diagnosStr, doctor, date)) {
                 updateTables();
             } else {
                 QMessageBox::warning(this, "Ошибка", "Питомец не найден или достигнут лимит записей о визитах.");
@@ -629,10 +658,10 @@ private slots:
     void removeVisitBySelection() {
         QModelIndexList selection = visitsTableView->selectionModel()->selectedRows();
         if (selection.isEmpty()) {
-            QMessageBox::warning(this, "Ошибка", "Пожалуйста, выберите визит для удаления.");
+            QMessageBox::warning(this, "Ошибка", "Пожалуйста, выберите  прием для удаления.");
             return;
         }
-        auto reply = QMessageBox::question(this, "Подтверждение", "Вы уверены, что хотите удалить выбранную запись о визите?", QMessageBox::Yes | QMessageBox::No);
+        auto reply = QMessageBox::question(this, "Подтверждение", "Вы уверены, что хотите удалить выбранную запись о  приеме?", QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::No) {
             return;
         }
@@ -662,13 +691,13 @@ private slots:
             QMessageBox::critical(this, "Критическая ошибка", "Не удалось разобрать дату из таблицы.");
             return;
         }
-        Time time = Time(stoi(dateParts[0]), dateParts[1], stoi(dateParts[2]));
+        Date date = Date(stoi(dateParts[0]), dateParts[1], stoi(dateParts[2]));
         delete[] dateParts; 
-        if (manager.removeVisit(key, diagnosStr, doctor, time)) {
+        if (manager.removeVisit(key, diagnosStr, doctor, date)) {
             updateTables();
-            QMessageBox::information(this, "Успех", "Запись о визите успешно удалена.");
+            QMessageBox::information(this, "Успех", "Запись о  приеме успешно удалена.");
         } else {
-            QMessageBox::warning(this, "Ошибка", "Не удалось удалить запись о визите. Запись не найдена в структурах данных.");
+            QMessageBox::warning(this, "Ошибка", "Не удалось удалить запись о  приеме. Запись не найдена в структурах данных.");
         }
     }
 
@@ -697,19 +726,19 @@ private slots:
             Doctor doctor(doctorParts[0], doctorParts[1], doctorParts[2]);
             delete[] doctorParts;
             string* timeParts = splitstring(timeStr, ' ');
-            Time time(stoi(timeParts[0]), timeParts[1], stoi(timeParts[2]));
+            Date date(stoi(timeParts[0]), timeParts[1], stoi(timeParts[2]));
             delete[] timeParts; 
-            if (manager.removeVisit(key, diagnosStr, doctor, time)) {
+            if (manager.removeVisit(key, diagnosStr, doctor, date)) {
                 updateTables();
-                QMessageBox::information(this, "Успех", "Запись о визите успешно удалена.");
+                QMessageBox::information(this, "Успех", "Запись о  приеме успешно удалена.");
             } else {
-                QMessageBox::warning(this, "Ошибка", "Не удалось удалить запись о визите. Проверьте введенные данные.");
+                QMessageBox::warning(this, "Ошибка", "Не удалось удалить запись о  приеме. Проверьте введенные данные.");
             }
         }
     }
 
 
-        void findVisits() {
+    void findVisits() {
         FindVisitsDialog dialog(this);
         if (dialog.exec() == QDialog::Accepted) {
             string petName = dialog.petName().toUtf8().toStdString();
@@ -787,26 +816,24 @@ private slots:
     }
 
 
-    Time helpFunc(string str){
+    Date helpFunc(string str){
         string* strParts = splitstring(str, ' ');
-        Time time(stoi(strParts[0]), strParts[1], stoi(strParts[2]));
+        Date date(stoi(strParts[0]), strParts[1], stoi(strParts[2]));
         delete[] strParts;
 
-        return time;
+        return date;
     
     }
 
     void showReportDialog() {
         ReportDialog dialog(this);
         if (dialog.exec() == QDialog::Accepted) {
-
             string ownerFio = dialog.ownerFio().toStdString();
-            string doctorFio = dialog.doctorFio().toStdString();
+            string diagnose = dialog.diagnose().toStdString();
             string startDateStr = dialog.startDate().toStdString();
             string endDateStr = dialog.endDate().toStdString();
 
-
-            if (ownerFio.empty() && doctorFio.empty() && startDateStr.empty() && endDateStr.empty()) {
+            if (ownerFio.empty() && diagnose.empty() && startDateStr.empty() && endDateStr.empty()) {
                 QMessageBox::warning(this, "Ошибка ввода", "Необходимо указать хотя бы один фильтр.");
                 return;
             }
@@ -815,12 +842,8 @@ private slots:
                 QMessageBox::warning(this, "Ошибка ввода", "Неверный формат ФИО владельца.");
                 return;
             }
-            if (!doctorFio.empty() && !validator.checkFIO(doctorFio)) {
-                QMessageBox::warning(this, "Ошибка ввода", "Неверный формат ФИО доктора.");
-                return;
-            }
             
-            Time startDate, endDate;
+            Date startDate, endDate;
             
             if (!startDateStr.empty() && !endDateStr.empty()) {
                 if (!validator.checkDate(startDateStr) || !validator.checkDate(endDateStr)) {
@@ -840,26 +863,26 @@ private slots:
                     return;
                 }
                 startDate = helpFunc(startDateStr);
-                endDate = Time(31, "декабрь", 2025);
+                endDate = Date(31, "декабрь", 2025);
             }
             else if (!endDateStr.empty()) {
                 if (!validator.checkDate(endDateStr)) {
                     QMessageBox::warning(this, "Ошибка ввода", "Неверный формат даты окончания периода.");
                     return;
                 }
-                startDate = Time(1, "январь", 2025);
+                startDate = Date(1, "январь", 2000);
                 endDate = helpFunc(endDateStr);
             }
             else {
-                startDate = Time(1, "январь", 2000);
-                endDate = Time(31, "декабрь", 2025);
+                startDate = Date(1, "январь", 2000);
+                endDate = Date(31, "декабрь", 2025);
             }
 
             ReportEntry reportData[1000];
 
             int entryCount = manager.generateReport(
                 ownerFio, 
-                doctorFio,
+                diagnose,
                 startDate, 
                 endDate,
                 reportData
@@ -878,9 +901,8 @@ private slots:
             reportWindow->show();
             reportWindow->raise(); 
             reportWindow->activateWindow(); 
-            }
         }
-
+    }
     void showDebugWindow() {
         if (debugWindow == nullptr) {
             debugWindow = new DebugWindow(this);
@@ -910,6 +932,7 @@ private slots:
     }
 
 private:
+    
     void createMenusAndToolbar() {
         QMenu *fileMenu = menuBar()->addMenu("&Файл");
         QMenu *loadMenu = fileMenu->addMenu("&Загрузить");
@@ -953,7 +976,7 @@ private:
         QAction *addPetAction = new QAction("Добавить питомца...", this);
         connect(addPetAction, &QAction::triggered, this, &MainWindow::addPet);
         addMenu->addAction(addPetAction);
-        QAction *addVisitAction = new QAction("Добавить визит...", this);
+        QAction *addVisitAction = new QAction("Добавить  прием...", this);
         connect(addVisitAction, &QAction::triggered, this, &MainWindow::addVisit);
         addMenu->addAction(addVisitAction);
         
@@ -966,7 +989,7 @@ private:
         connect(removePetDialogAction, &QAction::triggered, this, &MainWindow::removePetByDialog);
         removePetSubMenu->addAction(removePetDialogAction);
         
-        QMenu *removeVisitSubMenu = removeMenu->addMenu("Удалить визит");
+        QMenu *removeVisitSubMenu = removeMenu->addMenu("Удалить  прием");
         QAction* removeVisitSelectionAction = new QAction("Удалить выделенный", this);
         connect(removeVisitSelectionAction, &QAction::triggered, this, &MainWindow::removeVisitBySelection);
         removeVisitSubMenu->addAction(removeVisitSelectionAction);
@@ -1068,7 +1091,7 @@ private:
                 << new QStandardItem(QString::fromStdString(visit.key.owner.toStringView()))
                 << new QStandardItem(QString::fromStdString(visit.diagnos))
                 << new QStandardItem(QString::fromStdString(visit.doctor.toStringView()))
-                << new QStandardItem(QString::fromStdString(visit.time.toString()));
+                << new QStandardItem(QString::fromStdString(visit.date.toString()));
             visitsModel->appendRow(rowItems);
         }
     }

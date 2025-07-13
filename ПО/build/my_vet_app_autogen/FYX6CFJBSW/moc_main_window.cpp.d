@@ -458,6 +458,7 @@ C:/Users/HUAWEI/OneDrive/Рабочий\ стол/КП/ПО/build/my_vet_app_aut
   C:/msys64/mingw64/include/qt6/QtWidgets/QMessageBox \
   C:/msys64/mingw64/include/qt6/QtWidgets/QPlainTextEdit \
   C:/msys64/mingw64/include/qt6/QtWidgets/QPushButton \
+  C:/msys64/mingw64/include/qt6/QtWidgets/QSpinBox \
   C:/msys64/mingw64/include/qt6/QtWidgets/QTabWidget \
   C:/msys64/mingw64/include/qt6/QtWidgets/QTableView \
   C:/msys64/mingw64/include/qt6/QtWidgets/QVBoxLayout \
@@ -490,6 +491,7 @@ C:/Users/HUAWEI/OneDrive/Рабочий\ стол/КП/ПО/build/my_vet_app_aut
   C:/msys64/mingw64/include/qt6/QtWidgets/qrubberband.h \
   C:/msys64/mingw64/include/qt6/QtWidgets/qsizepolicy.h \
   C:/msys64/mingw64/include/qt6/QtWidgets/qslider.h \
+  C:/msys64/mingw64/include/qt6/QtWidgets/qspinbox.h \
   C:/msys64/mingw64/include/qt6/QtWidgets/qstyle.h \
   C:/msys64/mingw64/include/qt6/QtWidgets/qstyleoption.h \
   C:/msys64/mingw64/include/qt6/QtWidgets/qtabbar.h \
